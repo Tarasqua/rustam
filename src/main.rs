@@ -3,7 +3,12 @@ use crate::rectangle::run;
 mod enuming;
 use crate::enuming::enuming;
 
-use std::{cmp::Ordering, io};
+use rustam::collections_;
+use rustam::garden;
+use rustam::library;
+use rustam::utils;
+
+use std::{cmp::Ordering, collections::HashMap, fmt, io};
 
 use rand::Rng;
 
@@ -30,7 +35,30 @@ fn fun(Args { a, b }: Args) {
     println!("a: {}, b: {}", a, b);
 }
 
+// fn function1() -> fmt::Result {
+//     // --snip--
+// }
+
+// fn function2() -> io::Result<()> {
+//     // --snip--
+// }
+
 fn main() {
+    rustam::greet();
+    collections_::common::vectors();
+
+    rustam::tsc_utils_test();
+    utils::make_log("main");
+
+    let mut map: HashMap<&str, &str> = HashMap::new();
+    map.insert("k", "v");
+    map.insert("another_key", "val");
+
+    let plant = garden::vegetables::Asparagus {};
+    let fruit = garden::fruits::Orange {};
+    dbg!(plant);
+    dbg!(fruit);
+
     run();
     enuming();
     let s = String::from("hello world bitches");
