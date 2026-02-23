@@ -46,6 +46,8 @@ fn fun(Args { a, b }: Args) {
 fn main() {
     rustam::greet();
     collections_::common::vectors();
+    collections_::common::strings();
+    collections_::common::hashes();
 
     rustam::tsc_utils_test();
     utils::make_log("main");

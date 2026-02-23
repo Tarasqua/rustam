@@ -83,10 +83,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "restaurant"
+version = "0.1.0"
+
+[[package]]
 name = "rustam"
 version = "0.1.0"
 dependencies = [
  "rand",
+ "restaurant",
 ]
 
 [[package]]
