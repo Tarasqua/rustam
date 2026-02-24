@@ -45,9 +45,15 @@ fn fun(Args { a, b }: Args) {
 
 fn main() {
     rustam::greet();
+    collections_::homework::company_app();
     collections_::common::vectors();
     collections_::common::strings();
     collections_::common::hashes();
+
+    let mut vec: Vec<i32> = (0..100).collect();
+    let (median, mode) = collections_::homework::stats(&mut vec);
+    let pig = collections_::homework::pig_latin("Rust!");
+    println!("{pig}");
 
     rustam::tsc_utils_test();
     utils::make_log("main");
