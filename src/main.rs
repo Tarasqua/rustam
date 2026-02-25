@@ -4,6 +4,7 @@ mod enuming;
 use crate::enuming::enuming;
 
 use rustam::collections_;
+use rustam::errors;
 use rustam::garden;
 use rustam::library;
 use rustam::utils;
@@ -44,6 +45,8 @@ fn fun(Args { a, b }: Args) {
 // }
 
 fn main() {
+    // panic!("Test panic");
+    rustam::errors::errors_handling::erroring();
     rustam::greet();
     collections_::homework::company_app();
     collections_::common::vectors();

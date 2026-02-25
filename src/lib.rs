@@ -1,6 +1,8 @@
 pub mod auth;
 pub mod collections_;
+pub mod errors;
 pub mod garden;
+mod guessing_game;
 pub mod library;
 pub mod utils;
 pub mod f_ {
