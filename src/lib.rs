@@ -2,6 +2,7 @@ pub mod auth;
 pub mod collections_;
 pub mod errors;
 pub mod garden;
+pub mod generics;
 mod guessing_game;
 pub mod library;
 pub mod utils;
