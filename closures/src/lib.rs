@@ -1,3 +1,32 @@
+//! # Closures crate
+//!
+//! `closures` test
+
+/// Adds one to each element in the given vector.
+///
+/// # Examples
+///
+/// ```
+/// let v1 = vec![1, 2, 3];
+/// let v2 = closures::add_one_vec(v1);
+/// assert_eq!(v2, vec![2, 3, 4]);
+/// ```
+///
+/// # Panics
+///
+/// # Errors
+///
+/// # Safety
+pub fn add_one_vec(v: Vec<i32>) -> Vec<i32> {
+    v.into_iter().map(|x| x + 1).collect()
+}
+
+fn test_add_one() {
+    let v1 = vec![1, 2, 3];
+    let v2 = add_one_vec(v1);
+    assert_eq!(v2, vec![2, 3, 4]);
+}
+
 #[test]
 #[allow(clippy::useless_vec)]
 fn iterator_demonstration() {
@@ -27,7 +56,7 @@ fn iterator_sum() {
 
 #[test]
 #[allow(clippy::useless_vec)]
-fn add_one() {
+pub fn add_one() {
     let v1: Vec<i32> = vec![1, 2, 3];
     let v2: Vec<_> = v1.iter().map(|x| x + 1).collect();
     assert_eq!(v2, vec![2, 3, 4]);

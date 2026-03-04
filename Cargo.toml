@@ -7,3 +7,9 @@ edition = "2024"
 rand = "0.8.5"
 restaurant = { path = "restaurant" }
 adder = { path = "adder" }
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3

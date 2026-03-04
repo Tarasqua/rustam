@@ -1,0 +1,23 @@
+[package]
+name = "carger"
+version = "0.1.0"
+edition = "2024"
+
+# INFO: [workspace] defines which crates belong to the same project ecosystem
+# shared /target directory for all members
+# single Cargo.lock for all members
+# Cargo resolves versions globally for all members.
+# NOTE: cargo test / cargo build / cargo run -p (adder will run the adder crate) for this workspace
+# WARNING: members does NOT create dependencies between crates, it only groups them together
+[workspace]
+resolver = "3"
+members = ["adder", "add_one"]
+
+# INFO: [dependencies] defines which crates a specific crate depends on
+# `use add_one::add_one` is only possible with the add_one crate being a dependency
+# one-way relationship: adder depends on add_one, but not vice versa
+[dependencies]
+
+[workspace.dependencies]
+serde = { version = "1.0.228", features = ["derive"]}
+serde_json = { version = "1.0" }
