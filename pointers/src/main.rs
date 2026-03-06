@@ -7,6 +7,8 @@ enum List {
 
 use List::*;
 use pointers::ListRc::{Cons as RcCons, Nil as RcNil};
+use pointers::ListRcRefCell::{Cons as RcRefCellCons, Nil as RcRefCellNil};
+use std::cell::RefCell;
 use std::{mem::size_of_val, rc::Rc};
 
 struct CustomSmartPointer {
@@ -45,4 +47,15 @@ fn main() {
         println!("count after creating c = {}", Rc::strong_count(&a)); // 3
     }
     println!("count after c goes out of scope = {}", Rc::strong_count(&a)); // 2
+
+    let value = Rc::new(RefCell::new(5)); // INFO: Rc<RefCell<i32>> allows shared ownership of a mutable value
+    let a = Rc::new(RcRefCellCons(Rc::clone(&value), Rc::new(RcRefCellNil)));
+    let b = Rc::new(RcRefCellCons(Rc::clone(&value), Rc::clone(&a)));
+    let c = Rc::new(RcRefCellCons(Rc::clone(&value), Rc::clone(&a)));
+
+    *value.borrow_mut() += 10; // INFO: dereference operator (*) to access the inner RefCell, then call borrow_mut() to get a mutable reference to the value inside
+
+    println!("a after = {a:?}"); // a after = Cons(RefCell { value: 15 }, Nil)
+    println!("b after = {b:?}"); // b after = Cons(RefCell { value: 15 }, Cons(RefCell { value: 15 }, Nil))
+    println!("c after = {c:?}"); // c after = Cons(RefCell { value: 15 }, Cons(RefCell { value: 15 }, Nil))
 }
