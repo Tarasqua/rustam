@@ -151,6 +151,32 @@ pub fn int_to_roman(num: i32) -> String {
     result
 }
 
+// # 349. Intersection of Two Arrays
+// Link: https://leetcode.com/problems/intersection-of-two-arrays
+pub fn intersection(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+    // INFO: solution 1
+    // let mut nums1_set: HashSet<i32> = HashSet::from_iter(nums1);
+    // let mut result: Vec<i32> = Vec::new();
+
+    // for num in nums2 {
+    //     if nums1_set.remove(&num) {z
+    //         result.push(num);
+    //     }
+    // }
+    // result
+
+    // INFO: solution 2 (most idiomatic)
+    let mut set: HashSet<_> = nums1.into_iter().collect();
+    nums2.into_iter().filter(|n| set.remove(n)).collect()
+
+    // INFO: solution 3
+    // let set1: HashSet<_> = nums1.into_iter().collect();
+    // let set2: HashSet<_> = nums2.into_iter().collect();
+
+    // // Method intersection returns links -> .copied() is required
+    // set1.intersection(&set2).copied().collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -217,5 +243,19 @@ mod tests {
     }
 
     #[test]
-    fn test_int_to_roman() {}
+    fn test_int_to_roman() {
+        let num = 3749;
+        let result = int_to_roman(num);
+
+        assert_eq!(result, format!("MMMDCCXLIX"));
+    }
+
+    #[test]
+    fn test_intersection() {
+        let nums1 = [1, 2, 2, 1].to_vec();
+        let nums2 = vec![2, 2];
+        let result = intersection(nums1, nums2);
+
+        assert_eq!(result, vec![2]);
+    }
 }
