@@ -1,4 +1,10 @@
-use std::{process::Output, thread, time::Duration};
+pub mod types;
+use std::{
+    pin::{Pin, pin},
+    process::Output,
+    thread,
+    time::Duration,
+};
 
 use trpl::{Either, Html};
 
@@ -167,6 +173,41 @@ pub fn multi_sender() -> impl Future<Output = ()> {
 
         // INFO: the join! macro awaits an arbitrary number of futures where we know the number of futures at compile time.
         trpl::join!(tx1_fut, tx_fut, rx_fut);
+    }
+}
+
+pub fn multi_sender_pin() -> impl Future<Output = ()> {
+    async move {
+        let (tx, mut rx) = trpl::channel::<String>();
+
+        let tx1 = tx.clone();
+        // INFO: pinning allows us to move the future around without reallocating memory.
+        let tx1_fut = pin!(async move {
+            let vals = vec!["hello".to_string(), "my friend".to_string()];
+
+            for val in vals {
+                tx1.send(val).unwrap();
+                trpl::sleep(Duration::from_millis(1500)).await;
+            }
+        });
+
+        let rx_fut = pin!(async {
+            while let Some(value) = rx.recv().await {
+                println!("received '{value}'");
+            }
+        });
+
+        let tx_fut = pin!(async move {
+            let vals = vec!["another".to_string(), "one more".to_string()];
+
+            for val in vals {
+                tx.send(val).unwrap();
+                trpl::sleep(Duration::from_millis(500)).await;
+            }
+        });
+
+        let futures: Vec<Pin<&mut dyn Future<Output = ()>>> = vec![tx1_fut, tx_fut, rx_fut];
+        trpl::join_all(futures).await;
     }
 }
 

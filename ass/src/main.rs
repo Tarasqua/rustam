@@ -1,6 +1,9 @@
-use std::time::Duration;
+use std::{thread, time::Duration};
 
-use ass::{chan, multi_sender, race, slow_timedout, spawn_join, timeout, title, yielding_control};
+use ass::{
+    chan, multi_sender, multi_sender_pin, race, slow_timedout, spawn_join, timeout, title,
+    yielding_control,
+};
 
 // INFO: to call a method defined in a Trait, that Trait must be in scope
 // so we have to import StreamExt so that we can use .next for the trpl::stream_from_iter
@@ -40,7 +43,8 @@ fn main() {
 
     // trpl::block_on(async {
     //     // chan().await;
-    //     multi_sender().await;
+    //     // multi_sender().await;
+    //     multi_sender_pin().await; // works with pin/unpin
     // });
 
     // NOTE: ======================= yielding control =========================
@@ -68,15 +72,29 @@ fn main() {
     // });
 
     // NOTE: ======================= stream from iter =========================
-    trpl::block_on(async {
-        let arr: [i32; 10] = std::array::from_fn(|i| (i + 1) as i32);
-        let iter = arr.iter().map(|n| n * 2);
-        let mut stream = trpl::stream_from_iter(iter);
+    // trpl::block_on(async {
+    //     let arr: [i32; 10] = std::array::from_fn(|i| (i + 1) as i32);
+    //     let iter = arr.iter().map(|n| n * 2);
+    //     let mut stream = trpl::stream_from_iter(iter);
 
-        while let Some(value) = stream.next().await {
-            println!("The value was: {value}");
+    //     while let Some(value) = stream.next().await {
+    //         println!("The value was: {value}");
+    //     }
+    // })
+
+    // NOTE: ======================= threads alongside with async =========================
+    let (tx, mut rx) = trpl::channel::<i32>();
+
+    thread::spawn(move || {
+        for i in 1..11 {
+            tx.send(i).unwrap();
+            thread::sleep(Duration::from_secs(1));
         }
-    })
+    });
 
-    // INFO: Stopped on ch 17.5.
+    trpl::block_on(async {
+        while let Some(message) = rx.recv().await {
+            println!("{message}");
+        }
+    });
 }
