@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICU Brand Identity Rationale</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+
+        :root {
+            --obsidian: #222222;
+            --parchment: #EFEDE9;
+            --neural-mint: #65E4CB;
+            --cosmic-indigo: #8A63E4;
+            --alert-lime: #D8E53B;
+            --critical-rose: #E4637C;
+            --dark-background: #0F1010;
+            --swatch-background: #171718;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--dark-background);
+            color: var(--parchment);
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.7;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 120px;
+        }
+
+        .logo-symbol {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 40px;
+            background: var(--parchment);
+            clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--obsidian);
+            font-size: 48px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 72px;
+            font-weight: 600;
+            margin: 0 0 16px;
+            letter-spacing: -2px;
+        }
+
+        .tagline {
+            font-size: 28px;
+            color: #6B6B6C;
+            margin: 0;
+        }
+
+        .intro {
+            font-size: 18px;
+            max-width: 900px;
+            margin: 60px 0;
+            text-align: left;
+            opacity: 0.9;
+        }
+
+        section {
+            margin-bottom: 140px;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            margin-bottom: 32px;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 64px;
+            height: 3px;
+            background: var(--neural-mint);
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .color-swatch {
+            background: var(--swatch-background);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px var(--obsidian);
+        }
+
+        .swatch-preview {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .color-info {
+            padding: 24px;
+        }
+
+        .color-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .color-desc {
+          margin-bottom: 8px;
+          line-height: 33px;
+          opacity: 0.7;
+          font-size: 16px;
+        }
+
+        .color-name-container {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          gap: 4px;
+        }
+
+        .hex {
+            font-family: monospace;
+            font-size: 17px;
+            opacity: 0.8;
+        }
+
+        .typography-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 48px;
+        }
+
+        .font-example {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .satoshi-example {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 68px;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 80px 0 40px;
+            opacity: 0.7;
+            /* font-size: 15px; */
+        }
+
+        .highlight {
+            color: var(--neural-mint);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <!-- <div class="logo-symbol">ICU</div> -->
+            <h1>icu</h1>
+            <p class="tagline">BRAND IDENTITY RATIONALE</p>
+            <p><q, class="highlight">Observing while rising</q></p>
+            <p class="intro">
+              Этот документ описывает визуальную идентичность ICU — каждый элемент системы несёт конкретный смысл. Логотип, цвета, типографика и форма связаны единой концепцией: технологическая точность, человеческое присутствие, движение вперёд.<br>
+              Наблюдение - наша технология. Стремление - наша команда. Оба вектора закодированы в каждом элементе системы.<br>
+            </p>
+        </header>
+
+        <section id="symbol">
+            <h2>01 — Символ</h2>
+            <h3 style="font-size:24px; margin-bottom:24px; opacity:0.9;">Гексагон — Techno Cell</h3>
+            <p>Шестиугольник — универсальный символ технологических систем: от молекулярных структур до архитектуры процессоров. Он олицетворяет <strong>надёжность и целостность</strong> — фигура без слабых углов, равномерно распределяющая нагрузку.</p>
+            <p>Форма не замкнута полностью: разомкнутые грани символизируют <strong>модульность системы</strong> — открытость к интеграции, расширяемость, API-first подход.</p>
+
+            <h3 style="font-size:24px; margin:40px 0 24px; opacity:0.9;">Три сектора — Triple Field of View</h3>
+            <p>Внутреннее пространство делится на три сектора — прямая отсылка к трём углам обзора камер, формирующих <strong>замкнутое пространство наблюдения</strong>. Полный охват без мёртвых зон.</p>
+            <p>Три грани куба — это также три измерения: пространство, время, данные. И три буквы: I - C - U.</p>
+
+            <h3 style="font-size:24px; margin:40px 0 24px; opacity:0.9;">Стрела — Rising Vector</h3>
+            <p>Отрицательное пространство между секторами формирует стрелу, направленную вверх-вправо. Это скрытый символ — его видят не сразу, и в этом суть: <strong>ICU видит то, что другие не замечают.</strong></p>
+            <p>Стрела несёт двойной смысл: взгляд (I see you — основная функция продукта) и устремлённость вверх — ценности команды. Движение из левого нижнего угла в правый верхний — классическая траектория роста.</p>
+
+            <h3 style="font-size:24px; margin:40px 0 24px; opacity:0.9;">Асимметрия — Living Tension</h3>
+            <p>Внутренняя форма намеренно асимметрична. Она создаёт динамику внутри статичного контура — технологичный снаружи, живой внутри. Как и бренд: <strong>холодная точность системы</strong>, <strong>человеческая команда за ней</strong>.</p>
+        </section>
+
+        <section id="color">
+            <h2>02 — Цвет</h2>
+            <p>Палитра построена на принципе <strong>функционального присутствия</strong>: каждый цвет несёт конкретную роль, ни один не декоративный.</p>
+
+            <div class="color-grid">
+                <!-- Obsidian -->
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background:#222222; color:#EFEDE9;">Obsidian</div>
+                    <div class="color-info">
+                      <div class="color-name-container">
+                        <div class="color-name">Obsidian</div>
+                        <div class="color-desc">Основной темный</div>
+                      </div>
+                        <div class="hex">#222222</div>
+                        <p>Не чистый чёрный — тёплый уголь. Статусность без холодности.</p>
+                    </div>
+                </div>
+
+                <!-- Parchment -->
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background:#EFEDE9; color:#222222;">Parchment</div>
+                    <div class="color-info">
+                      <div class="color-name-container">
+                        <div class="color-name">Parchment</div>
+                        <div class="color-desc">Основной светлый</div>
+                      </div>
+                        <div class="hex">#EFEDE9</div>
+                        <p>Не белый — слоновая кость. Тактильность, премиальность, контраст без резкости.</p>
+                    </div>
+                </div>
+
+                <!-- Signal Mint -->
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background:#65E4CB; color:#222222;">Neural Mint</div>
+                    <div class="color-info">
+                      <div class="color-name-container">
+                        <div class="color-name">Neural Mint</div>
+                        <div class="color-desc">Акцентный</div>
+                      </div>
+                        <div class="hex">#65E4CB</div>
+                        <p>Технологическая чистота, ясность мышления. Оттенок терминальных экранов старых компьютеров.</p>
+                    </div>
+                </div>
+
+                <!-- Deep Signal -->
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background:#8A63E4; color:white;">Cosmic Indigo</div>
+                    <div class="color-info">
+                      <div class="color-name-container">
+                        <div class="color-name">Cosmic Indigo</div>
+                        <div class="color-desc">Информационный</div>
+                      </div>
+                        <div class="hex">#8A63E4</div>
+                        <p>Доверие и спокойствие. Уведомления, аналитика, состояние системы.</p>
+                    </div>
+                </div>
+
+                <!-- Alert Lime -->
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background:#D8E53B; color:#222222;">Alert Lime</div>
+                    <div class="color-info">
+                      <div class="color-name-container">
+                        <div class="color-name">Alert Lime</div>
+                        <div class="color-desc">Предупреждение</div>
+                      </div>
+                        <div class="hex">#D8E53B</div>
+                        <p>Заметен, но не агрессивен. Предупреждения, пограничные состояния, внимание.</p>
+                    </div>
+                </div>
+
+                <!-- Critical Rose -->
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background:#E4637C; color:white;">Critical Rose</div>
+                    <div class="color-info">
+                      <div class="color-name-container">
+                        <div class="color-name">Critical Rose</div>
+                        <div class="color-desc">Ошибка</div>
+                      </div>
+                        <div class="hex">#E4637C</div>
+                        <p>Тревога без паники. Критические события, ошибки, нарушения периметра.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="typography">
+            <h2>03 — Типографика</h2>
+            
+            <div class="typography-grid">
+                <div class="font-example">
+                    <div style="font-size:15px; opacity:0.6; margin-bottom:12px;">Основной шрифт</div>
+                    <div class="satoshi-example" style="color:var(--neural-mint);">icu</div>
+                    <p><strong>Satoshi Bold (строчные)</strong><br>
+                    Геометрический гротеск с humanist-деталями. Строчные буквы делают бренд ближе и человечнее. Закрытые апертуры «c» и «u» перекликаются с замкнутым контуром наблюдения.</p>
+                </div>
+
+                <div class="font-example">
+                    <div style="font-size:15px; opacity:0.6; margin-bottom:12px;">Дополнительный шрифт</div>
+                    <div style="font-size:52px; font-weight:500; line-height:1.1;">General Sans</div>
+                    <p><strong>General Sans Regular / Medium</strong><br>
+                    Нейтральный и максимально читаемый. Используется для интерфейса, body copy и длинных текстов. Не конкурирует с основным шрифтом.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="system">
+            <h2>04 — Система в целом</h2>
+            <p>Каждый элемент идентичности ICU несёт одну и ту же пару идей: <strong>точность + присутствие</strong>.</p>
+            <ul style="font-size:19px; line-height:1.9; max-width:800px;">
+                <li>Гексагон — устойчивость снаружи, движение внутри.</li>
+                <li>Signal Mint — холодный расчёт и тёплое доверие.</li>
+                <li>Satoshi строчными — технология с человеческим голосом.</li>
+                <li>Скрытая стрела — видит то, что другие пропускают.</li>
+            </ul>
+            <p style="margin-top:60px; font-size:21px; opacity:0.85;">
+                Бренд не кричит о безопасности — он её воплощает.
+            </p>
+        </section>
+
+        <footer>
+            ICU · Intelligent Camera Upgrade · 2026
+        </footer>
+    </div>
+</body>
+</html>

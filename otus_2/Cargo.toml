@@ -1,0 +1,10 @@
+[package]
+name = "otus_2"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rand = {version = "0.9", optional = true}
+
+[features]
+real_random = ["rand"]

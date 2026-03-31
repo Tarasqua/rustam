@@ -7,6 +7,7 @@ edition = "2024"
 rand = "0.8.5"
 restaurant = { path = "restaurant" }
 adder = { path = "adder" }
+otus_2 = { path = "otus_2", features = ["real_random"] }
 
 [profile.dev]
 opt-level = 0

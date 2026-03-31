@@ -46,6 +46,7 @@ fn fun(Args { a, b }: Args) {
 
 fn main() {
     // panic!("Test panic");
+    println!("{}", otus_2::roll_dice());
     rustam::errors::errors_handling::erroring();
     rustam::greet();
     collections_::homework::company_app();
