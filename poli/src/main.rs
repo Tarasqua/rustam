@@ -1,5 +1,5 @@
+use poli::decl_macr::timeit_;
 use poli::figures::make_figures;
-use poli::macr::timeit_;
 use poli::plug::make_plugins;
 
 fn main() {

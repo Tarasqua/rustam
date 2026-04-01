@@ -1,3 +1,5 @@
+// NOTE: declarative macros are defined using the macro_rules! macro.
+
 macro_rules! four {
     () => {
         1 + 3

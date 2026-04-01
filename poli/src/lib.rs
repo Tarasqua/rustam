@@ -1,6 +1,7 @@
+pub mod decl_macr;
 pub mod figures;
-pub mod macr;
 pub mod plug;
+pub mod proc_macr;
 pub mod sorter;
 
 fn compare<T: PartialOrd>(a: T, b: T) -> T {
