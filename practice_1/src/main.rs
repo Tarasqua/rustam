@@ -1,129 +1,116 @@
-use core::fmt;
-use std::error::Error;
+use std::{
+    sync::{
+        Arc, Barrier, Mutex, RwLock,
+        atomic::{self, AtomicI32},
+        mpsc::{self, Receiver, Sender, SyncSender},
+    },
+    thread,
+};
 
 fn main() {
-    let data = download();
+    barrier_example();
+}
 
-    // match data {
-    //     Ok(_) => todo!(),
-    //     Err(DownloadError::ConnectionError(_)) => todo!("retry connection"),
-    //     Err(_) => todo!(),
-    // }
+fn primitive_arc() {
+    let init_cmd = String::from("Show database");
+    let cmd_arc = Arc::new(init_cmd);
+    let cmd_ref = cmd_arc.clone();
+    let thread_ = thread::spawn(move || {
+        perform(cmd_ref.as_str());
+    });
+    thread_.join().unwrap();
+}
 
-    match &data {
-        Ok(_) => todo!(),
-        Err(e) => log_error(e),
+fn perform(cmd: &str) {
+    println!("Performing command: {}", cmd);
+}
+
+fn atomics() {
+    let counter = Arc::new(AtomicI32::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            counter.fetch_add(1, atomic::Ordering::SeqCst);
+        });
+        handles.push(handle);
     }
 
-    print!("{:?}", data)
-}
-
-fn log_error(e: &impl Error) {
-    eprintln!("Error: {:?}", e);
-    println!("Error: {}", e);
-
-    println!("\t Caused by: {:?}", e.source());
-}
-
-fn download() -> Result<Data, DownloadError> {
-    // let connection = match connect() {
-    //     Ok(conn) => conn,
-    //     Err(e) => return Err(DownloadError::ConnectionError(e)),
-    // };
-    let connection = connect()?;
-
-    // let data = match load(connection) {
-    //     Ok(data) => data,
-    //     Err(e) => return Err(DownloadError::LoadError(e)),
-    // };
-    let data = load(connection).map_err(DownloadError::LoadError)?;
-
-    Ok(data)
-}
-
-#[derive(Debug)]
-enum DownloadError {
-    ConnectionError(ConnectionError),
-    LoadError(LoadError),
-}
-
-impl fmt::Display for DownloadError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            DownloadError::ConnectionError(e) => write!(f, "Connection error: {:?}", e),
-            DownloadError::LoadError(e) => write!(f, "Load error: {:?}", e),
-        }
+    for handle in handles {
+        handle.join().unwrap();
     }
+
+    println!("{}", counter.load(atomic::Ordering::SeqCst));
 }
 
-impl Error for DownloadError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
-        match self {
-            DownloadError::ConnectionError(e) => Some(e),
-            DownloadError::LoadError(e) => Some(e),
-        }
+fn mutexes() {
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+            *num += 1;
+            // std::mem::drop(num); // INFO: unlocks the mutex
+        });
+        handles.push(handle);
     }
-}
 
-impl From<ConnectionError> for DownloadError {
-    fn from(e: ConnectionError) -> Self {
-        DownloadError::ConnectionError(e)
+    for handle in handles {
+        handle.join().unwrap();
     }
+
+    println!("{}", *counter.lock().unwrap());
 }
 
-fn connect() -> Result<Connection, ConnectionError> {
-    let smth = false;
-    if smth {
-        Ok(Connection)
-    } else {
-        Err(ConnectionError::BadAddress)
+fn rwlocks() {
+    let counter = Arc::new(RwLock::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let num = counter.read().unwrap(); // INFO: RwLock guarantees multiple simultaneous save read
+            println!("{}", *num);
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
     }
 }
 
-#[derive(Debug)]
-enum ConnectionError {
-    BadAddress,
-    TimedOut,
-}
+fn barrier_example() {
+    // INFO: Barrier forces to wait for all threads to reach the barrier before continuing execution
+    let barrier = Arc::new(Barrier::new(10));
+    let mut handles = vec![];
 
-impl fmt::Display for ConnectionError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ConnectionError::BadAddress => write!(f, "Bad address"),
-            ConnectionError::TimedOut => write!(f, "Timed out"),
-        }
+    for i in 0..10 {
+        let b = Arc::clone(&barrier);
+        handles.push(thread::spawn(move || {
+            println!("Thread {} started A phace", i);
+
+            b.wait(); // INFO: the point of synchronization: the thread will stop here until the other 9 arrive
+
+            println!("Thread {} passed the barrier", i);
+        }));
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
     }
 }
 
-impl Error for ConnectionError {}
+fn chans() {
+    // mpsc::sync_channel() // INFO: sync with fixed buffer (sender can be blocked in case of overflow)
+    // mpsc::channel() // INFO: async (fire-and-forget)
 
-fn load(_connection: Connection) -> Result<Data, LoadError> {
-    let condition = true;
-    if condition {
-        Ok(Data {})
-    } else {
-        Err(LoadError::AccessDenied)
-    }
+    let (tx, rx): (Sender<i32>, Receiver<i32>) = mpsc::channel();
+    let (tx, rx): (SyncSender<i32>, Receiver<i32>) = mpsc::sync_channel(1024); // INFO: bound - queue maxlen
+
+    // tx.send(...).unwrap();
+    // rx.recv().unwrap();
 }
-
-#[derive(Debug)]
-enum LoadError {
-    AccessDenied,
-    NotFound,
-}
-
-impl fmt::Display for LoadError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            LoadError::AccessDenied => write!(f, "Access denied"),
-            LoadError::NotFound => write!(f, "Not found"),
-        }
-    }
-}
-
-impl Error for LoadError {}
-
-#[derive(Debug)]
-struct Data;
-
-struct Connection;
