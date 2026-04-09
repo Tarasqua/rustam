@@ -1,0 +1,16 @@
+[package]
+name = "chat"
+version = "0.1.0"
+edition = "2024"
+description = "A simple chat application with a server and client side implemented in Rust"
+
+[workspace]
+resolver = "2"
+members = [
+    "stp",
+    "chat_server",
+    "chat_client",
+    "chat_cli",
+]
+
+[dependencies]

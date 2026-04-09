@@ -1,0 +1,12 @@
+[package]
+name = "chat_cli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+chat_client = { path = "../chat_client" }
+anyhow = "1.0.51"
+async-trait = "0.1.87"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["full"] }
