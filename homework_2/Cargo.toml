@@ -1,0 +1,35 @@
+[package]
+name = "homework_2"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "homework_2"
+path = "src/lib.rs"
+
+[[bin]]
+name = "socket_simulator"
+path = "src/bin/socket_simulator.rs"
+
+[[bin]]
+name = "thermometer_simulator"
+path = "src/bin/thermometer_simulator.rs"
+
+[[example]]
+name = "smart_home"
+path = "examples/smart_home.rs"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+async-trait = "0.1"
+tokio-util = { version = "0.7", features = ["rt"] }
+futures = "0.3"
+thiserror = "1"
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+rand = "0.8"
+clap = { version = "4", features = ["derive"] }
+
+[dev-dependencies]
+proptest = "1"
+tokio = { version = "1", features = ["full"] }
