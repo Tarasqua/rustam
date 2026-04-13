@@ -42,8 +42,8 @@ impl SmartSocket {
     async fn send_command(&self, cmd: TcpCommand) -> Result<TcpResponse, SmartHomeError> {
         let stream = timeout(self.timeout, TcpStream::connect(self.addr))
             .await
-            .map_err(|_| SmartHomeError::Timeout)?
-            .map_err(SmartHomeError::Io)?;
+            .map_err(|_| SmartHomeError::Timeout)? // Elapsed error -> SmartHomeError::Timeout
+            .map_err(SmartHomeError::Io)?; // std::io::Error -> SmartHomeError::Io
 
         let (reader, mut writer) = stream.into_split();
         let mut reader = BufReader::new(reader);
@@ -53,6 +53,9 @@ impl SmartSocket {
             .write_all(cmd.encode().as_bytes())
             .await
             .map_err(SmartHomeError::Io)?;
+
+        // Close the writer to signal the end of the request
+        writer.shutdown().await.map_err(SmartHomeError::Io)?;
 
         // Read response line
         let mut line = String::new();
@@ -107,10 +110,6 @@ impl SmartDevice for SmartSocket {
             Ok(w) => format!("SmartSocket [{}]: {:.1} W", self.addr, w),
             Err(e) => format!("SmartSocket [{}]: ERROR — {}", self.addr, e),
         }
-    }
-
-    fn as_any(&self) -> &dyn std::any::Any {
-        self
     }
 }
 

@@ -107,10 +107,6 @@ impl SmartDevice for SmartThermometer {
             Err(e) => format!("SmartThermometer: ERROR — {}", e),
         }
     }
-
-    fn as_any(&self) -> &dyn std::any::Any {
-        self
-    }
 }
 
 #[cfg(test)]

@@ -34,21 +34,28 @@ pub type HouseReport = String;
 /// }
 /// ```
 #[async_trait::async_trait]
-pub trait SmartDevice: Send + Sync {
+pub trait SmartDevice: AsAny + Send + Sync {
     /// Returns a human-readable status report for this device.
     ///
     /// On error the implementation MUST return a non-empty [`DeviceReport`]
     /// containing a description of the error rather than propagating it.
     async fn report(&self) -> DeviceReport;
+}
 
+/// A trait for types that can be downcast to `dyn std::any::Any`.
+pub trait AsAny {
     /// Returns `self` as `&dyn std::any::Any` to enable downcasting.
-    ///
-    /// Every implementor should provide the one-liner body:
-    /// `fn as_any(&self) -> &dyn std::any::Any { self }`
     ///
     /// This is the standard Rust pattern for recovering a concrete type
     /// from a trait object stored as `Box<dyn SmartDevice>`.
     fn as_any(&self) -> &dyn std::any::Any;
+}
+
+// blanket implementation for any type that implements `std::any::Any`
+impl<T: std::any::Any> AsAny for T {
+    fn as_any(&self) -> &dyn std::any::Any {
+        self
+    }
 }
 
 #[cfg(test)]
@@ -65,10 +72,6 @@ mod tests {
     impl SmartDevice for MockSmartDevice {
         async fn report(&self) -> DeviceReport {
             self.report.clone()
-        }
-
-        fn as_any(&self) -> &dyn std::any::Any {
-            self
         }
     }
 

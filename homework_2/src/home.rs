@@ -135,10 +135,6 @@ mod tests {
         async fn report(&self) -> DeviceReport {
             self.report.clone()
         }
-
-        fn as_any(&self) -> &dyn std::any::Any {
-            self
-        }
     }
 
     /// Test double: always returns an error description.
@@ -148,10 +144,6 @@ mod tests {
     impl SmartDevice for ErrorDevice {
         async fn report(&self) -> DeviceReport {
             "ERROR — simulated failure".to_string()
-        }
-
-        fn as_any(&self) -> &dyn std::any::Any {
-            self
         }
     }
 

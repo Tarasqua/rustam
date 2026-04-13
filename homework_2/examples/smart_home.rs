@@ -51,6 +51,7 @@ async fn main() {
     // -------------------------------------------------------------------------
 
     // Turn the socket on before reading the report so we get a non-zero wattage.
+    // NOTE: turbofish `::<SmartSocket>` is used to specify the type parameter
     if let Some(socket) = home.get_device::<SmartSocket>("Living Room", "Smart Socket") {
         println!("Turning socket ON...");
         match socket.turn_on().await {
