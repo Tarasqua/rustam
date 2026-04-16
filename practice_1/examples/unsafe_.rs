@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 fn main() {
     let mut arr = vec![1, 2, 3, 4, 5];
     let (left, right) = split_at_mut(&mut arr, 3);

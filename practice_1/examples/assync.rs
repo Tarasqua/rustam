@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 use std::time::Duration;
 use tokio::{sync::mpsc, time::sleep};
 use tokio_util::sync::CancellationToken;

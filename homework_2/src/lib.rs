@@ -3,6 +3,7 @@
 //! Provides the [`SmartDevice`] trait and type aliases used throughout
 //! the crate, plus re-exports of all public sub-modules.
 
+pub mod compositor;
 pub mod error;
 pub mod home;
 pub mod socket;

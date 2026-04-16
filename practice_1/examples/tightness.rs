@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 use std::num::NonZeroU32;
 
 fn main() {}

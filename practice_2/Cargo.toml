@@ -1,0 +1,9 @@
+[package]
+name = "practice_2"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+euclid = "0.22.14"
+nom = "8.0.0"
+serde = "1.0.228"

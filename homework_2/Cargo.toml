@@ -19,6 +19,18 @@ path = "src/bin/thermometer_simulator.rs"
 name = "smart_home"
 path = "examples/smart_home.rs"
 
+[[example]]
+name = "builder_example"
+path = "examples/builder_example.rs"
+
+[[example]]
+name = "compositor_example"
+path = "examples/compositor_example.rs"
+
+[[example]]
+name = "observer_example"
+path = "examples/observer_example.rs"
+
 [dependencies]
 tokio = { version = "1", features = ["full"] }
 async-trait = "0.1"
