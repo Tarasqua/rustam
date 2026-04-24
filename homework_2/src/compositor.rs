@@ -41,8 +41,9 @@ impl ReportCompositor {
     ///
     /// The generic bound `T: Reportable + 'static` allows passing any
     /// concrete type without the caller needing to box it manually.
-    pub fn add<T: Reportable + 'static>(&mut self, item: T) {
+    pub fn add<T: Reportable + 'static>(&mut self, item: T) -> &mut Self {
         self.items.push(Box::new(item));
+        self
     }
 
     /// Prints the combined report for all added items to stdout.

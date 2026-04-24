@@ -51,22 +51,23 @@ fn main() {
     let mut compositor = ReportCompositor::new("My Smart Home");
 
     // add() accepts any T: Reportable — static dispatch, no manual boxing needed
-    compositor.add(Socket {
-        name: "Living Room Socket".into(),
-        watts: 150.0,
-    });
-    compositor.add(Thermometer {
-        name: "Bedroom Thermometer".into(),
-        celsius: 21.5,
-    });
-    compositor.add(SecurityCamera {
-        location: "Front Door".into(),
-        recording: true,
-    });
-    compositor.add(Socket {
-        name: "Kitchen Socket".into(),
-        watts: 2000.0,
-    });
+    compositor
+        .add(Socket {
+            name: "Living Room Socket".into(),
+            watts: 150.0,
+        })
+        .add(Thermometer {
+            name: "Bedroom Thermometer".into(),
+            celsius: 21.5,
+        })
+        .add(SecurityCamera {
+            location: "Front Door".into(),
+            recording: true,
+        })
+        .add(Socket {
+            name: "Kitchen Socket".into(),
+            watts: 2000.0,
+        });
 
     // Prints the combined report for all items
     compositor.report();

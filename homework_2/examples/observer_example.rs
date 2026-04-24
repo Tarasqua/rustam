@@ -6,7 +6,7 @@
 //! - Both fire when a device is added to the room.
 //!
 //! Run with:
-//! ```text
+//! ```
 //! cargo run --example observer_example
 //! ```
 
