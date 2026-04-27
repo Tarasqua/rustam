@@ -493,6 +493,8 @@ dependencies = [
  "otus_2",
  "rand 0.8.5",
  "restaurant",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

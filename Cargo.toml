@@ -8,6 +8,8 @@ rand = "0.8.5"
 restaurant = { path = "restaurant" }
 adder = { path = "adder" }
 otus_2 = { path = "otus_2", features = ["real_random"] }
+serde = "1.0.228"
+serde_json = "1.0.149"
 
 [profile.dev]
 opt-level = 0
