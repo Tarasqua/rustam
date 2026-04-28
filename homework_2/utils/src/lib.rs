@@ -1,5 +1,9 @@
 #![allow(dead_code)]
 
+pub mod logging_;
+pub mod profiling_;
+pub mod tracing_;
+
 pub fn fast_search(arr: &[i32], target: i32) -> Option<usize> {
     let mut left = 0;
     let mut right = arr.len() - 1;

@@ -21,3 +21,23 @@ Concurrency:
 
 Error:
 - https://crates.io/crates/anyhow
+
+Logging:
+- https://crates.io/crates/log
+- https://crates.io/crates/env_logger
+- https://crates.io/crates/tracing
+- https://crates.io/crates/tracing-subscriber
+
+Debug:
+- rust-gdp
+- rust-lldb
+
+Profiling:
+- perf: https://perfwiki.github.io/main/
+- amd: https://crates.io/crates/amd_uprof/0.1.1
+- intel: VTune Profile
+- https://crates.io/crates/flamegraph
+
+Benchmarking:
+- built-in bench
+- https://crates.io/crates/criterion
