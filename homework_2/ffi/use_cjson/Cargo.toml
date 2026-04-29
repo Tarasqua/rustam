@@ -1,0 +1,10 @@
+[package]
+name = "use_cjson"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[build-dependencies] # available in build.rs only
+bindgen = { version = "0.72.1" }
+cc = { version = "1.2.61" }
